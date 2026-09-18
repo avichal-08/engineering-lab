@@ -22,16 +22,16 @@ Engineering Lab rejects static blog articles and trivia-based interview prep in 
 
 | Lab | Primitive | Category | Key Challenge |
 | :--- | :--- | :--- | :--- |
-| [**Rate Limiting**](http://localhost:3000/learn/rate-limiting) | Token Bucket & Leaky Bucket | Resilience | Burst handling, Redis Lua, monotonic clocks |
-| [**Circuit Breaker**](http://localhost:3000/learn/circuit-breaker) | Three-state circuit finite state machine | Reliability | Fast-fail load shedding, canary probes |
-| [**Retries & Backoff**](http://localhost:3000/learn/retries) | Exponential Backoff with Jitter | Reliability | Thundering herds, phase alignment de-correlation |
-| [**Idempotency**](http://localhost:3000/learn/idempotency) | Transactional Replay Gate | Reliability | Duplicate payment prevention, payload hashing |
-| [**Caching Strategies**](http://localhost:3000/learn/caching) | Cache-Aside & Mutex SingleFlight | Data | Cache stampede prevention, eviction races |
-| [**Message Queues**](http://localhost:3000/learn/message-queues) | Competing Consumers & Visibility | Messaging | Poison pills, dead-letter quarantine (DLQ) |
-| [**Publish-Subscribe**](http://localhost:3000/learn/pub-sub) | Fanout Broker with Consumer Groups | Messaging | Temporal decoupling, consumer lag isolation |
-| [**Consistent Hashing**](http://localhost:3000/learn/consistent-hashing) | 360° Circular Hash Ring & VNodes | Distributed Systems | Minimal key migration ($K/N$), hot-spot reduction |
-| [**Distributed Lock**](http://localhost:3000/learn/distributed-lock) | Redis / Redlock with Fencing | Distributed Systems | Kleppmann GC pause dilemma, monotonic fencing |
-| [**Replication & Quorum**](http://localhost:3000/learn/replication-quorum) | Leaderless Dynamo-style Quorum | Distributed Systems | $W + R > N$ Pigeonhole principle, read repair |
+| [**Rate Limiting**](https://engineering-lab-one.vercel.app/learn/rate-limiting) | Token Bucket & Leaky Bucket | Resilience | Burst handling, Redis Lua, monotonic clocks |
+| [**Circuit Breaker**](https://engineering-lab-one.vercel.app/learn/circuit-breaker) | Three-state circuit finite state machine | Reliability | Fast-fail load shedding, canary probes |
+| [**Retries & Backoff**](https://engineering-lab-one.vercel.app/learn/retries) | Exponential Backoff with Jitter | Reliability | Thundering herds, phase alignment de-correlation |
+| [**Idempotency**](https://engineering-lab-one.vercel.app/learn/idempotency) | Transactional Replay Gate | Reliability | Duplicate payment prevention, payload hashing |
+| [**Caching Strategies**](https://engineering-lab-one.vercel.app/learn/caching) | Cache-Aside & Mutex SingleFlight | Data | Cache stampede prevention, eviction races |
+| [**Message Queues**](https://engineering-lab-one.vercel.app/learn/message-queues) | Competing Consumers & Visibility | Messaging | Poison pills, dead-letter quarantine (DLQ) |
+| [**Publish-Subscribe**](https://engineering-lab-one.vercel.app/learn/pub-sub) | Fanout Broker with Consumer Groups | Messaging | Temporal decoupling, consumer lag isolation |
+| [**Consistent Hashing**](https://engineering-lab-one.vercel.app/learn/consistent-hashing) | 360° Circular Hash Ring & VNodes | Distributed Systems | Minimal key migration ($K/N$), hot-spot reduction |
+| [**Distributed Lock**](https://engineering-lab-one.vercel.app/learn/distributed-lock) | Redis / Redlock with Fencing | Distributed Systems | Kleppmann GC pause dilemma, monotonic fencing |
+| [**Replication & Quorum**](https://engineering-lab-one.vercel.app/learn/replication-quorum) | Leaderless Dynamo-style Quorum | Distributed Systems | $W + R > N$ Pigeonhole principle, read repair |
 
 ---
 
