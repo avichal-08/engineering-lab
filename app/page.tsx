@@ -2,30 +2,27 @@ import Link from "next/link";
 import { getAllConcepts } from "@/content/concepts";
 import { RequestFlowHero } from "@/components/learning/request-flow-hero";
 import { HorizontalJourney } from "@/components/learning/horizontal-journey";
+import { HeroExperimentControl } from "@/components/learning/hero-experiment-control";
 import {
   ArrowRight,
   Terminal,
-  Activity,
-  FileCode2,
-  ShieldCheck,
-  Zap,
 } from "lucide-react";
 
 export default function HomePage() {
   const concepts = getAllConcepts();
 
   return (
-    <div className="space-y-24 py-12 md:py-20 font-sans">
-      {/* 1. HERO SECTION */}
+    <div className="space-y-28 md:space-y-36 py-12 md:py-20 font-sans">
+      {/* 1. HERO SCENE */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
-          {/* Badge */}
+          {/* Capability Badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/20 px-3.5 py-1 font-mono text-xs text-cyan-400">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
             <span>Interactive Engineering Education</span>
           </div>
 
-          {/* New Requested Headline */}
+          {/* Headline */}
           <h1 className="font-serif-heading text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
             Stop memorizing distributed systems.{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
@@ -33,53 +30,38 @@ export default function HomePage() {
             </span>
           </h1>
 
-          {/* New Requested Supporting Text */}
+          {/* Supporting Text */}
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl max-w-[72ch]">
-            Explore engineering primitives through interactive simulations, failure scenarios, implementation walkthroughs, and production-grade code.
+            Deconstruct distributed primitives through interactive failure injection, predictive challenges, implementation blueprints, and production-grade code.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <Link
-              href="/learn"
-              className="flex items-center gap-2 rounded-xl bg-zinc-100 px-6 py-3 text-sm font-semibold text-zinc-950 hover:bg-white active:scale-95 transition shadow-lg"
-            >
-              <Terminal className="h-4 w-4" />
-              <span>Explore Labs</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-
-            <Link
-              href="/learn/rate-limiting"
-              className="flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/80 px-5 py-3 text-sm font-medium text-zinc-300 hover:border-cyan-500/50 hover:text-white transition"
-            >
-              <Zap className="h-4 w-4 text-cyan-400" />
-              <span>Try Rate Limiting</span>
-            </Link>
+          {/* Interactive Hero Experiment Control Surface */}
+          <div className="w-full pt-1">
+            <HeroExperimentControl />
           </div>
         </div>
 
-        {/* Hero Visual: Animated SVG + Motion Request Flow (Client -> Gateway -> Limiter -> Service + 429 branch) */}
-        <div className="mt-14 max-w-5xl mx-auto">
+        {/* Hero Visualizer Canvas */}
+        <div className="mt-14 md:mt-16 max-w-5xl mx-auto">
           <RequestFlowHero />
         </div>
       </section>
 
-      {/* 2. HORIZONTAL LEARNING JOURNEY (Replaces Why Engineering Lab) */}
-      <section className="border-y border-zinc-800/80 bg-zinc-950/60 py-20">
+      {/* 2. THE ENGINEERING LAB LOOP SCENE */}
+      <section className="border-y border-zinc-800/80 bg-zinc-950/60 py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <HorizontalJourney />
         </div>
       </section>
 
-      {/* 3. LABS LIBRARY */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-zinc-800/80 pb-4">
-          <div>
-            <span className="font-mono text-xs uppercase tracking-wider text-cyan-400">
+      {/* 3. LABS CURRICULUM SCENE */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-zinc-800/80 pb-6">
+          <div className="space-y-1">
+            <span className="font-mono text-xs uppercase tracking-wider text-cyan-400 font-semibold">
               Curriculum Catalog
             </span>
-            <h2 className="font-serif-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
               10 Foundational Labs
             </h2>
           </div>
@@ -98,10 +80,10 @@ export default function HomePage() {
             <Link
               key={concept.slug}
               href={`/learn/${concept.slug}`}
-              className="group rounded-xl border border-zinc-800/80 bg-zinc-950/60 p-5 space-y-3 hover:border-zinc-700 hover:bg-zinc-900/30 transition-all flex flex-col justify-between"
+              className="group rounded-2xl border border-zinc-800/80 bg-zinc-950/60 p-6 space-y-4 hover:border-zinc-700 hover:bg-zinc-900/40 transition-all duration-200 flex flex-col justify-between"
             >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500">
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
                   <span>{concept.category}</span>
                   <span className="text-cyan-400">{concept.difficulty}</span>
                 </div>
@@ -113,10 +95,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-500 group-hover:text-cyan-400 transition-colors">
+              <div className="pt-4 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-500 group-hover:text-cyan-400 transition-colors">
                 <span>{concept.estimatedTime}</span>
                 <span className="flex items-center gap-1 font-semibold">
-                  Launch Lab <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  Run Experiment <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
             </Link>
@@ -124,14 +106,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. BOTTOM CALL TO ACTION */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-zinc-950 p-8 sm:p-12 text-center space-y-6 shadow-2xl">
+      {/* 4. BOTTOM CALL TO ACTION SCENE */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-zinc-950 p-8 sm:p-14 text-center space-y-6 shadow-2xl">
           <h2 className="font-serif-heading text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to master distributed engineering?
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed max-w-[72ch]">
-            Start with Rate Limiting, experiment with the interactive simulators, and implement resilient systems from scratch.
+            Simulate token exhaustion, predict circuit tripping under load, and verify monotonic fencing tokens.
           </p>
           <div>
             <Link
@@ -139,7 +121,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3 text-xs font-semibold text-zinc-950 hover:bg-cyan-300 active:scale-95 transition shadow-lg"
             >
               <Terminal className="h-4 w-4" />
-              <span>Launch Rate Limiter Lab</span>
+              <span>Run Rate Limiter Experiment</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
