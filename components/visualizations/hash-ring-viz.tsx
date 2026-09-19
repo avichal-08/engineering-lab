@@ -158,7 +158,7 @@ export function HashRingViz() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         {/* SVG Circular Coordinate Ring */}
         <div className="md:col-span-6 flex flex-col items-center justify-center p-4 rounded-xl border border-zinc-800/80 bg-zinc-900/30">
-          <svg width="270" height="270" viewBox="0 0 270 270" className="overflow-visible">
+          <svg viewBox="0 0 270 270" className="w-full max-w-[270px] h-auto overflow-visible">
             {/* Base Hash Ring Circle */}
             <circle
               cx={cx}

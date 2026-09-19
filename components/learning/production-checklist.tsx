@@ -147,13 +147,13 @@ export function ProductionChecklist() {
                 />
               </div>
 
-              <div className="space-y-1 font-mono text-xs flex-1">
-                <div className="font-bold text-zinc-100">{item.metric}</div>
-                <p className="text-zinc-400 leading-relaxed text-[11px] max-w-[72ch]">
+              <div className="space-y-1 font-mono text-xs flex-1 min-w-0">
+                <div className="font-bold text-zinc-100 break-words">{item.metric}</div>
+                <p className="text-zinc-400 leading-relaxed text-[11px] max-w-[72ch] break-words">
                   <strong className="text-zinc-300">Why it matters: </strong>
                   {item.whyItMatters}
                 </p>
-                <div className="rounded bg-zinc-950 px-2.5 py-1 text-[11px] text-cyan-300 border border-zinc-800/80 inline-block mt-1">
+                <div className="rounded bg-zinc-950 px-2.5 py-1 text-[11px] text-cyan-300 border border-zinc-800/80 inline-block mt-1 break-words">
                   Example: {item.example}
                 </div>
               </div>

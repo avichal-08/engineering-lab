@@ -27,10 +27,10 @@ export default function HomePage() {
             <span>{siteConfig.heroEyebrow}</span>
           </div>
 
-          {/* Headline */}
+          {/* Headline - Explicit Two-Line Split */}
           <h1 className="font-serif-heading text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-            {siteConfig.heroHeadlinePrefix}{" "}
-            <span className="block sm:inline bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+            <span className="block">{siteConfig.heroHeadlinePrefix}</span>
+            <span className="block bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
               {siteConfig.heroHeadlineAccent}
             </span>
           </h1>
@@ -67,7 +67,7 @@ export default function HomePage() {
               Curriculum Catalog
             </span>
             <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              10 Foundational Labs
+              Foundational Labs
             </h2>
           </div>
 

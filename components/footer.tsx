@@ -26,8 +26,7 @@ export function Footer() {
             </p>
 
             <p className="text-zinc-500 text-xs leading-relaxed max-w-sm max-w-[72ch]">
-              Interactive engineering labs for understanding how software really works through
-              simulations, experimentation, implementation, and failure.
+              {siteConfig.description}
             </p>
 
             <div className="pt-2">

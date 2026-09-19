@@ -2,7 +2,7 @@
 
 > **Understand how software really works.**
 
-An interactive developer education platform for mastering software engineering fundamentals, distributed systems, and resilience primitives through experimentation, visualization, building, and failure.
+Interactive engineering labs for understanding how software really works through simulations, experimentation, implementation, and failure.
 
 ---
 
@@ -57,7 +57,7 @@ While initial content is rooted in distributed systems resilience, Invariants is
 - **Styling**: Tailwind CSS v4, Lucide Icons
 - **Animation**: Motion (Framer Motion)
 - **Code Syntax Highlighting**: Shiki (build-time server-side pre-rendering)
-- **Architecture**: 100% Static HTML generation (SSG) across all 17 routes with zero external runtime dependencies.
+- **Architecture**: 100% Static HTML generation (SSG) across all 19 routes with zero external runtime dependencies.
 
 ---
 
@@ -70,8 +70,8 @@ While initial content is rooted in distributed systems resilience, Invariants is
 
 ```bash
 # Clone the repository
-git clone https://github.com/avichal-08/engineering-lab.git
-cd engineering-lab
+git clone https://github.com/avichal-08/invariants.git
+cd invariants
 
 # Install dependencies
 bun install
@@ -95,6 +95,6 @@ bun run start
 
 Invariants is free and open-source. Contributions for new labs, clearer architectural diagrams, or additional reference implementations are welcome.
 
-- **Repository**: [github.com/avichal-08/engineering-lab](https://github.com/avichal-08/engineering-lab)
+- **Repository**: [github.com/avichal-08/invariants](https://github.com/avichal-08/invariants)
 - **Creator**: [@Avichal_08](https://x.com/Avichal_08)
 - **License**: MIT

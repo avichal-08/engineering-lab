@@ -129,7 +129,7 @@ const rateLimitingBlueprintSteps: BlueprintStep[] = [
     pseudocode: `func (b *Bucket) Allow(cost int64) bool {
   b.mu.Lock()
   defer b.mu.Unlock() // Crucial: never hold lock across network requests
-  
+
   b.refill()
   if b.tokens >= cost {
     b.tokens -= cost
@@ -152,7 +152,7 @@ const rateLimitingBlueprintSteps: BlueprintStep[] = [
   now := time.Now()
   elapsed := now.Sub(b.lastRefill).Seconds()
   tokensToAdd := int64(elapsed * float64(b.refillRate))
-  
+
   if tokensToAdd > 0 {
     b.tokens = min(b.capacity, b.tokens + tokensToAdd)
     b.lastRefill = now
@@ -213,7 +213,7 @@ return allowed`,
     pseudocode: `func CheckRateLimit(ctx context.Context, key string) (bool, error) {
   ctx, cancel := context.WithTimeout(ctx, 15*time.Millisecond)
   defer cancel()
-  
+
   allowed, err := redisClient.EvalSha(ctx, scriptSha, []string{key}, ...).Bool()
   if err != nil {
     // FAIL-OPEN: Record metric and allow traffic to proceed
@@ -704,16 +704,16 @@ export default async function ConceptDetailPage({ params }: PageProps) {
                     Telemetry & Observability:
                   </span>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div className="space-y-1">
+                    <div className="space-y-1 min-w-0">
                       <span className="text-zinc-500 font-bold block">PROMETHEUS METRICS:</span>
                       {concept.production.observability.metrics.map((m, i) => (
-                        <div key={i} className="text-zinc-300">➔ {m}</div>
+                        <div key={i} className="text-zinc-300 break-words">➔ {m}</div>
                       ))}
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-1 min-w-0">
                       <span className="text-zinc-500 font-bold block">DISTRIBUTED TRACES & LOGS:</span>
                       {concept.production.observability.traces.map((t, i) => (
-                        <div key={i} className="text-zinc-300">➔ {t}</div>
+                        <div key={i} className="text-zinc-300 break-words">➔ {t}</div>
                       ))}
                     </div>
                   </div>

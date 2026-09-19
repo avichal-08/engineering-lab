@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Star } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export function GitHubStarButton() {
   const [stars, setStars] = useState<number | null>(null);
@@ -10,7 +11,7 @@ export function GitHubStarButton() {
     let isMounted = true;
     async function fetchStars() {
       try {
-        const res = await fetch("https://api.github.com/repos/avichal-08/engineering-lab", {
+        const res = await fetch("https://api.github.com/repos/avichal-08/invariants", {
           headers: {
             Accept: "application/vnd.github.v3+json",
           },
@@ -21,7 +22,7 @@ export function GitHubStarButton() {
             setStars(data.stargazers_count);
           }
         }
-      } catch (e) {
+      } catch {
         // Fallback silently if offline or rate limited
       }
     }
@@ -33,7 +34,7 @@ export function GitHubStarButton() {
 
   return (
     <a
-      href="https://github.com/avichal-08/engineering-lab"
+      href={siteConfig.links.github}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-1.5 rounded-md border border-zinc-800 bg-zinc-900/80 px-2.5 py-1 text-[11px] font-mono text-zinc-300 hover:border-zinc-700 hover:text-white transition group"

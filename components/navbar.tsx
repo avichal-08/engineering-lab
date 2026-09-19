@@ -75,7 +75,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800/90 bg-zinc-900/60 font-mono text-[11px] text-zinc-400">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <span>10 Interactive Labs</span>
+            <span>Interactive Labs</span>
           </div>
 
           <Link
@@ -113,7 +113,7 @@ export function Navbar() {
         <div className="md:hidden border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-md px-4 py-4 space-y-3 font-mono text-xs animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="flex items-center gap-2 px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900/60 text-[11px] text-zinc-400 w-fit">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <span>10 Interactive Labs</span>
+            <span>Interactive Labs</span>
           </div>
 
           <div className="flex flex-col space-y-1 pt-1">

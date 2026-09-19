@@ -87,7 +87,7 @@ export function LabCatalog({ concepts }: LabCatalogProps) {
           </div>
 
           {/* Difficulty Dropdown / Buttons */}
-          <div className="flex items-center gap-1.5 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
             <span className="text-zinc-500 text-[11px]">DIFFICULTY:</span>
             {difficulties.map((diff) => (
               <button
