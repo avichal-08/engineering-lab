@@ -384,7 +384,7 @@ class LinearRegression:
     },
     {
       title: "Scikit-Learn Linear Models Architecture",
-      type: "Docs",
+      type: "Blog",
       authorOrOrg: "Scikit-Learn Community",
       description: "In-depth engineering notes on LAPACK solver selection and conditioning.",
       url: "https://scikit-learn.org/stable/modules/linear_model.html",
