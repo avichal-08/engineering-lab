@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllSlugs } from "@/content/concepts";
+import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://engineering-lab.dev";
+  const baseUrl = siteConfig.url;
   const slugs = getAllSlugs();
 
   const conceptUrls = slugs.map((slug) => ({

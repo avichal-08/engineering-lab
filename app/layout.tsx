@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { siteConfig } from "@/lib/site-config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,12 +22,43 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    template: "%s | Engineering Lab",
-    default: "Engineering Lab — Stop memorizing distributed systems. Start building them.",
+    template: `%s | ${siteConfig.name}`,
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
   },
-  description:
-    "Explore engineering primitives through interactive simulations, failure scenarios, implementation walkthroughs, and production-grade code in Go, TypeScript, Python, and Java.",
+  description: siteConfig.description,
+  keywords: [
+    "distributed systems",
+    "systems engineering",
+    "backend architecture",
+    "software invariants",
+    "rate limiting",
+    "consistent hashing",
+    "circuit breaker",
+    "developer education",
+    "interactive engineering",
+  ],
+  authors: [{ name: siteConfig.author, url: siteConfig.links.twitter }],
+  creator: siteConfig.author,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    creator: "@Avichal_08",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

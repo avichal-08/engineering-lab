@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!concept) return { title: "Lab Not Found" };
 
   return {
-    title: `${concept.title} | Engineering Lab`,
+    title: `${concept.title}`,
     description: concept.shortDescription,
   };
 }

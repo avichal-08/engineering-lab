@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { Cpu, GitBranch, ExternalLink, ArrowUpRight } from "lucide-react";
+import { GitBranch, ExternalLink, ArrowUpRight } from "lucide-react";
 import { GitHubStarButton } from "./github-star-button";
+import { InvariantsLogo } from "@/components/brand/invariants-logo";
+import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
@@ -12,20 +14,20 @@ export function Footer() {
           <div className="space-y-4 md:col-span-5">
             <div className="flex items-center gap-3">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800 text-cyan-400">
-                <Cpu className="h-4 w-4" />
+                <InvariantsLogo className="h-4.5 w-4.5" />
               </div>
               <span className="font-sans font-bold text-sm text-white tracking-tight">
-                Engineering Lab
+                {siteConfig.name}
               </span>
             </div>
 
-            <p className="font-mono text-zinc-300 text-xs">
-              Build systems. Break systems. Understand systems.
+            <p className="font-mono text-zinc-300 text-xs font-medium">
+              {siteConfig.tagline}
             </p>
 
             <p className="text-zinc-500 text-xs leading-relaxed max-w-sm max-w-[72ch]">
-              An interactive learning platform for distributed systems and resilience engineering.
-              Explore primitives through visual models, edge-case simulations, and multi-language production code.
+              Interactive engineering labs for understanding how software really works through
+              simulations, experimentation, implementation, and failure.
             </p>
 
             <div className="pt-2">
@@ -33,10 +35,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Explore Curriculum (Col 6-8) */}
+          {/* Curriculum Exploration (Col 6-8) */}
           <div className="space-y-3 font-mono md:col-span-3">
             <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block">
-              Curriculum
+              Curriculum Labs
             </span>
             <ul className="space-y-2 text-zinc-500 text-xs">
               <li>
@@ -78,13 +80,13 @@ export function Footer() {
               Open Source
             </span>
             <p className="text-zinc-500 text-xs leading-relaxed max-w-xs font-sans">
-              Built in public. Have an idea for a new visualizer, better failure mode, or implementation guide?
+              Built in public. Have an idea for a new interactive lab, visualizer, or edge-case failure mode?
             </p>
 
             <div className="space-y-2.5 pt-1">
               <div>
                 <a
-                  href="https://github.com/avichal-08/engineering-lab"
+                  href={siteConfig.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-cyan-400 transition"
@@ -97,7 +99,7 @@ export function Footer() {
 
               <div>
                 <a
-                  href="https://x.com/Avichal_08"
+                  href={siteConfig.links.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-cyan-400 transition"
@@ -110,12 +112,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Clean Copyright & Identity */}
+        {/* Bottom Bar */}
         <div className="mt-14 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-zinc-500 text-[11px]">
-          <div>&copy; {new Date().getFullYear()} Engineering Lab &bull; Free & Open Source</div>
+          <div>&copy; {new Date().getFullYear()} {siteConfig.name} &bull; Free & Open Source</div>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/avichal-08/engineering-lab"
+              href={siteConfig.links.github}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-300 transition"
@@ -124,7 +126,7 @@ export function Footer() {
             </a>
             <span>&bull;</span>
             <a
-              href="https://x.com/Avichal_08"
+              href={siteConfig.links.twitter}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-300 transition"
