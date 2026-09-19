@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Check, Copy, Download, Terminal, FileCode2, Shield, Clock, Cpu } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Check, Copy, Download, FileCode2, Cpu } from "lucide-react";
 import { Language } from "@/content/concepts/types";
 
-interface HighlightedCodeData {
+export interface HighlightedCodeData {
   lang: Language;
   filename: string;
   rawCode: string;
@@ -15,14 +15,30 @@ interface HighlightedCodeData {
 }
 
 interface CodeViewerProps {
-  implementations: Record<Language, HighlightedCodeData>;
+  implementations: Partial<Record<Language, HighlightedCodeData>>;
 }
 
 export function CodeViewer({ implementations }: CodeViewerProps) {
-  const [selectedLang, setSelectedLang] = useState<Language>("go");
+  const languages: { id: Language; label: string; badge: string }[] = [
+    { id: "python", label: "Python", badge: ".py" },
+    { id: "typescript", label: "TypeScript", badge: ".ts" },
+    { id: "go", label: "Go", badge: ".go" },
+    { id: "java", label: "Java", badge: ".java" },
+  ];
+
+  const availableLanguages = languages.filter((l) => Boolean(implementations[l.id]));
+  const defaultLang = availableLanguages.find((l) => l.id === "python")?.id || availableLanguages[0]?.id || "python";
+
+  const [selectedLang, setSelectedLang] = useState<Language>(defaultLang);
   const [copied, setCopied] = useState<boolean>(false);
 
-  const current = implementations[selectedLang];
+  useEffect(() => {
+    if (!implementations[selectedLang] && availableLanguages.length > 0) {
+      setSelectedLang(availableLanguages[0].id);
+    }
+  }, [implementations, selectedLang, availableLanguages]);
+
+  const current = implementations[selectedLang] || implementations[defaultLang] || Object.values(implementations)[0];
 
   const handleCopy = async () => {
     if (!current) return;
@@ -41,7 +57,7 @@ export function CodeViewer({ implementations }: CodeViewerProps) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = current.filename || `implementation.${selectedLang}`;
+    link.download = current.filename || `implementation.${current.lang}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -50,58 +66,42 @@ export function CodeViewer({ implementations }: CodeViewerProps) {
 
   const lineCount = current?.rawCode ? current.rawCode.split("\n").length : 0;
 
-  const languages: { id: Language; label: string; badge: string }[] = [
-    { id: "go", label: "Go", badge: ".go" },
-    { id: "typescript", label: "TypeScript", badge: ".ts" },
-    { id: "python", label: "Python", badge: ".py" },
-    { id: "java", label: "Java", badge: ".java" },
-  ];
-
   return (
     <div className="space-y-6 font-sans">
       {/* Design Decisions Section Above the Code */}
-      <div className="rounded-xl border border-zinc-800 bg-zinc-950/70 p-5 space-y-4">
-        <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2">
-          <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
-            <Cpu className="h-4 w-4" /> Core Architectural Design Decisions
-          </h4>
-          <span className="font-mono text-[10px] text-zinc-500">Invariants & Concurrency</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 space-y-1">
-            <span className="text-zinc-400 font-bold block">Why Mutex / Locks?</span>
-            <p className="text-zinc-300 text-[11px] leading-relaxed">
-              Token refill and decrement must be strictly atomic. Mutex guarantees no two concurrent threads double-spend the final token.
-            </p>
+      {current && current.keyDecisions && current.keyDecisions.length > 0 && (
+        <div className="rounded-xl border border-zinc-800 bg-zinc-950/70 p-5 space-y-4">
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+              <Cpu className="h-4 w-4" /> Core Architectural Design Decisions
+            </h4>
+            <span className="font-mono text-[10px] text-zinc-500">Invariants & Mechanics</span>
           </div>
 
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 space-y-1">
-            <span className="text-zinc-400 font-bold block">Why Monotonic Clock?</span>
-            <p className="text-zinc-300 text-[11px] leading-relaxed">
-              Wall clock time (<code className="text-cyan-300">time.Now()</code>) can jump backwards during NTP syncs, creating negative time intervals. Monotonic clock strictly moves forward.
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+            {current.keyDecisions.map((decision, idx) => {
+              const parts = decision.split(":");
+              const title = parts.length > 1 ? parts[0] : `Decision 0${idx + 1}`;
+              const desc = parts.length > 1 ? parts.slice(1).join(":").trim() : decision;
+              return (
+                <div key={idx} className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 space-y-1">
+                  <span className="text-zinc-400 font-bold block">{title}</span>
+                  <p className="text-zinc-300 text-[11px] leading-relaxed">{desc}</p>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 space-y-1">
-            <span className="text-zinc-400 font-bold block">Why Lazy Refill?</span>
-            <p className="text-zinc-300 text-[11px] leading-relaxed">
-              Background ticker timers waste CPU cycles for idle keys. Calculating <code className="text-cyan-300">elapsed × rate</code> on-demand runs in O(1) only when requests arrive.
-            </p>
-          </div>
+          {current.complexityNotes && (
+            <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-zinc-800/60 font-mono text-[11px]">
+              <span className="text-zinc-400">Algorithmic Complexity:</span>
+              <span className="rounded bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-emerald-400 font-bold">
+                {current.complexityNotes}
+              </span>
+            </div>
+          )}
         </div>
-
-        {/* Complexity Badges */}
-        <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-zinc-800/60 font-mono text-[11px]">
-          <span className="text-zinc-400">Algorithmic Complexity:</span>
-          <span className="rounded bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-emerald-400 font-bold">
-            Time: O(1) per request check
-          </span>
-          <span className="rounded bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 text-cyan-400 font-bold">
-            Space: O(1) per client key (~16 bytes)
-          </span>
-        </div>
-      </div>
+      )}
 
       {/* Code Container with Sticky Language Tabs */}
       <div className="rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden shadow-2xl">
@@ -109,12 +109,12 @@ export function CodeViewer({ implementations }: CodeViewerProps) {
         <div className="sticky top-14 z-30 flex flex-wrap items-center justify-between border-b border-zinc-800 bg-zinc-900/90 backdrop-blur-md px-4 py-2.5 gap-3">
           {/* Language Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto">
-            {languages.map((l) => (
+            {availableLanguages.map((l) => (
               <button
                 key={l.id}
                 onClick={() => setSelectedLang(l.id)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
-                  selectedLang === l.id
+                  (current?.lang || selectedLang) === l.id
                     ? "bg-zinc-800 text-white font-medium shadow-sm border border-cyan-500/40 active-cyan-glow"
                     : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40"
                 }`}

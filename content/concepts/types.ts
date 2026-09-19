@@ -1,10 +1,13 @@
 export type Difficulty = "Beginner" | "Intermediate" | "Advanced";
+export type Track = "Systems" | "Machine Learning" | "Deep Learning";
 export type Category =
   | "Distributed Systems"
   | "Reliability"
   | "Data"
   | "Messaging"
-  | "Infrastructure";
+  | "Infrastructure"
+  | "Machine Learning"
+  | "Deep Learning";
 export type Language = "go" | "typescript" | "python" | "java";
 
 export interface BuildStep {
@@ -45,10 +48,33 @@ export interface FurtherReading {
   url?: string;
 }
 
+export type VisualizerType =
+  | "rate-limiter"
+  | "circuit-breaker"
+  | "retry-backoff"
+  | "idempotency"
+  | "cache"
+  | "queue"
+  | "pub-sub"
+  | "hash-ring"
+  | "distributed-lock"
+  | "replication-quorum"
+  | "linear-regression"
+  | "gradient-descent"
+  | "classification"
+  | "k-means"
+  | "decision-trees"
+  | "neurons"
+  | "activation-functions"
+  | "backpropagation"
+  | "convolutional-networks"
+  | "attention";
+
 export interface Concept {
   slug: string;
   title: string;
   shortDescription: string;
+  track?: Track;
   category: Category;
   difficulty: Difficulty;
   estimatedTime: string;
@@ -83,23 +109,13 @@ export interface Concept {
   };
 
   // Section 04: Visualizer identifier
-  visualizerType:
-    | "rate-limiter"
-    | "circuit-breaker"
-    | "retry-backoff"
-    | "idempotency"
-    | "cache"
-    | "queue"
-    | "pub-sub"
-    | "hash-ring"
-    | "distributed-lock"
-    | "replication-quorum";
+  visualizerType: VisualizerType;
 
   // Section 05: Build steps
   buildSteps: BuildStep[];
 
-  // Section 06: Implementations in 4 languages
-  codeImplementations: Record<Language, CodeImplementation>;
+  // Section 06: Implementations
+  codeImplementations: Partial<Record<Language, CodeImplementation>>;
 
   // Section 07: Edge cases
   edgeCases: {

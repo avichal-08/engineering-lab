@@ -10,9 +10,24 @@ import { consistentHashing } from "./consistent-hashing";
 import { distributedLock } from "./distributed-lock";
 import { replicationQuorum } from "./replication-quorum";
 
+// Machine Learning Concepts
+import { linearRegression } from "./linear-regression";
+import { gradientDescent } from "./gradient-descent";
+import { classification } from "./classification";
+import { kMeans } from "./k-means";
+import { decisionTrees } from "./decision-trees";
+
+// Deep Learning Concepts
+import { neurons } from "./neurons";
+import { activationFunctions } from "./activation-functions";
+import { backpropagation } from "./backpropagation";
+import { convolutionalNetworks } from "./cnn-convolution";
+import { attentionMechanism } from "./attention-mechanism";
+
 export * from "./types";
 
 export const concepts: Concept[] = [
+  // Distributed Systems Track
   rateLimiting,
   circuitBreaker,
   retries,
@@ -23,6 +38,20 @@ export const concepts: Concept[] = [
   consistentHashing,
   distributedLock,
   replicationQuorum,
+
+  // Machine Learning Track
+  linearRegression,
+  gradientDescent,
+  classification,
+  kMeans,
+  decisionTrees,
+
+  // Deep Learning Track
+  neurons,
+  activationFunctions,
+  backpropagation,
+  convolutionalNetworks,
+  attentionMechanism,
 ];
 
 export function getAllConcepts(): Concept[] {
