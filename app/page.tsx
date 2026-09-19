@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { getAllConcepts } from "@/content/concepts";
-import { RequestFlowHero } from "@/components/learning/request-flow-hero";
 import { HorizontalJourney } from "@/components/learning/horizontal-journey";
-import { HeroExperimentControl } from "@/components/learning/hero-experiment-control";
 import { HeroSystemMesh } from "@/components/learning/hero-system-mesh";
+import { InteractiveHero } from "@/components/learning/interactive-hero"; // <-- IMPORT NEW COMPONENT
 import { siteConfig } from "@/lib/site-config";
 import {
   ArrowRight,
@@ -40,15 +39,8 @@ export default function HomePage() {
             {siteConfig.heroBody}
           </p>
 
-          {/* Interactive Hero Experiment Control Surface */}
-          <div className="w-full pt-1">
-            <HeroExperimentControl />
-          </div>
-        </div>
-
-        {/* Live System Simulation Canvas */}
-        <div className="mt-14 md:mt-16 max-w-5xl mx-auto relative z-10">
-          <RequestFlowHero />
+          {/* Interactive Hero injected here */}
+          <InteractiveHero />
         </div>
       </section>
 
