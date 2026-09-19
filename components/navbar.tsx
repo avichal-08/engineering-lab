@@ -47,28 +47,7 @@ export function Navbar() {
           </Link>
 
           {/* Center Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1 font-mono text-xs">
-            <Link
-              href="/learn"
-              className={`px-3 py-1.5 rounded-md transition ${
-                pathname === "/learn"
-                  ? "bg-zinc-800/90 text-white font-medium shadow-sm border border-zinc-700/60"
-                  : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/60"
-              }`}
-            >
-              All Labs
-            </Link>
-            <Link
-              href="/learn/rate-limiting"
-              className={`px-3 py-1.5 rounded-md transition ${
-                pathname === "/learn/rate-limiting"
-                  ? "bg-zinc-800/90 text-white font-medium shadow-sm border border-zinc-700/60"
-                  : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/60"
-              }`}
-            >
-              Featured Lab
-            </Link>
-          </nav>
+
         </div>
 
         {/* Right: Capability Indicator & Primary CTA (Desktop) */}

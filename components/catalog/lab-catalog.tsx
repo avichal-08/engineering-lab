@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { Concept, Category, Difficulty } from "@/content/concepts";
-import { Search, Clock, ArrowRight, Sparkles, Filter } from "lucide-react";
+import { Search, Clock, ArrowRight, Sparkles, Filter, SlidersHorizontal } from "lucide-react";
 
 interface LabCatalogProps {
   concepts: Concept[];
@@ -13,32 +13,33 @@ export function LabCatalog({ concepts }: LabCatalogProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("All");
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false); // New state for mobile filters
 
-  const categories = ["All", "Resilience", "Data", "Messaging", "Distributed Systems"];
+  const categories = [
+    "All",
+    "Resilience",
+    "Data",
+    "Messaging",
+    "Distributed Systems",
+    "Machine Learning",
+    "Deep Learning",
+  ];
   const difficulties = ["All", "Beginner", "Intermediate", "Advanced"];
 
   const filteredConcepts = useMemo(() => {
     return concepts.filter((concept) => {
-      // Category match
-      if (selectedCategory !== "All" && concept.category !== selectedCategory) {
-        return false;
-      }
+      if (selectedCategory !== "All" && concept.category !== selectedCategory) return false;
+      if (selectedDifficulty !== "All" && concept.difficulty !== selectedDifficulty) return false;
 
-      // Difficulty match
-      if (selectedDifficulty !== "All" && concept.difficulty !== selectedDifficulty) {
-        return false;
-      }
-
-      // Search query match
       if (searchQuery.trim() !== "") {
         const query = searchQuery.toLowerCase();
-        const matchesTitle = concept.title.toLowerCase().includes(query);
-        const matchesDesc = concept.shortDescription.toLowerCase().includes(query);
-        const matchesTopics = concept.topics.some((t) => t.toLowerCase().includes(query));
-        const matchesSlug = concept.slug.toLowerCase().includes(query);
-        return matchesTitle || matchesDesc || matchesTopics || matchesSlug;
+        return (
+          concept.title.toLowerCase().includes(query) ||
+          concept.shortDescription.toLowerCase().includes(query) ||
+          concept.topics.some((t) => t.toLowerCase().includes(query)) ||
+          concept.slug.toLowerCase().includes(query)
+        );
       }
-
       return true;
     });
   }, [concepts, searchQuery, selectedCategory, selectedDifficulty]);
@@ -47,28 +48,48 @@ export function LabCatalog({ concepts }: LabCatalogProps) {
     <div className="space-y-8 font-sans">
       {/* Controls Bar: Search + Category Filters */}
       <div className="space-y-4">
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-500" />
-          <input
-            type="text"
-            placeholder="Search by primitive, keyword, or topic (e.g., token bucket, quorum, redlock, bloom)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-10 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 shadow-inner focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600 transition"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3.5 top-2.5 text-xs font-mono text-zinc-500 hover:text-zinc-300"
-            >
-              Clear
-            </button>
-          )}
+
+        {/* Search Input & Mobile Filter Toggle */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-500" />
+            <input
+              type="text"
+              placeholder="Search by primitive, keyword, or topic (e.g., token bucket, gradient descent, neural networks)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-10 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 shadow-inner focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600 transition"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-2.5 text-xs font-mono text-zinc-500 hover:text-zinc-300"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {/* Mobile Filter Hamburger */}
+          <button
+            onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+            className={`md:hidden flex items-center justify-center rounded-xl border px-3 transition-colors ${
+              isFiltersOpen || selectedCategory !== "All" || selectedDifficulty !== "All"
+                ? "border-cyan-500/50 bg-cyan-950/30 text-cyan-400"
+                : "border-zinc-800 bg-zinc-950/80 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-300"
+            }`}
+            aria-label="Toggle filters"
+          >
+            <Filter className="h-4 w-4" />
+          </button>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        {/* Filters (Collapsible on Mobile, Inline on Desktop) */}
+        <div
+          className={`${
+            isFiltersOpen ? "flex flex-col" : "hidden"
+          } md:flex md:flex-row md:flex-wrap md:items-center md:justify-between gap-4 pt-2 md:pt-0`}
+        >
           {/* Category Tabs */}
           <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
             {categories.map((cat) => (
@@ -87,8 +108,8 @@ export function LabCatalog({ concepts }: LabCatalogProps) {
           </div>
 
           {/* Difficulty Dropdown / Buttons */}
-          <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
-            <span className="text-zinc-500 text-[11px]">DIFFICULTY:</span>
+          <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs pt-2 md:pt-0 border-t border-zinc-800/50 md:border-none">
+            <span className="text-zinc-500 text-[11px] pr-1">DIFFICULTY:</span>
             {difficulties.map((diff) => (
               <button
                 key={diff}

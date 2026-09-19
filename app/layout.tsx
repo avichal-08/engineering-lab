@@ -31,8 +31,12 @@ export const metadata: Metadata = {
   keywords: [
     "distributed systems",
     "systems engineering",
+    "machine learning",
+    "deep learning",
     "backend architecture",
     "software invariants",
+    "gradient descent",
+    "neural networks",
     "rate limiting",
     "consistent hashing",
     "circuit breaker",

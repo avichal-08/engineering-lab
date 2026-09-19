@@ -24,13 +24,14 @@ function HeroExperimentSelector({ activeId, setActiveId }: { activeId: string, s
         <span className="text-zinc-500">Select Primitive</span>
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-center gap-2 border-b border-zinc-800/60 pb-3">
-        <div className="flex items-center gap-1 bg-zinc-900/50 p-1 rounded-lg border border-zinc-800/50 w-full md:w-auto">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-3 border-b border-zinc-800/60 pb-3">
+        {/* Responsive horizontal scrolling tabs for mobile */}
+        <div className="flex overflow-x-auto items-center gap-1 bg-zinc-900/50 p-1 rounded-lg border border-zinc-800/50 w-full md:w-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {EXPERIMENTS.map(exp => (
             <button
               key={exp.id}
               onClick={() => setActiveId(exp.id)}
-              className={`px-3.5 py-1.5 text-xs font-mono rounded-md transition-colors whitespace-nowrap ${
+              className={`px-3.5 py-1.5 text-xs font-mono rounded-md transition-colors whitespace-nowrap flex-shrink-0 ${
                 activeId === exp.id
                   ? 'bg-zinc-800/80 text-cyan-400 border border-zinc-700/50 shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/30'
@@ -45,19 +46,19 @@ function HeroExperimentSelector({ activeId, setActiveId }: { activeId: string, s
 
         <Link
           href={activeExp.target}
-          className="flex items-center justify-center gap-1.5 bg-cyan-400 text-zinc-950 text-xs font-bold font-mono px-5 py-2 rounded-lg hover:bg-cyan-300 transition-colors w-full md:w-auto shadow-[0_0_12px_rgba(34,211,238,0.25)]"
+          className="flex items-center justify-center gap-1.5 bg-cyan-400 text-zinc-950 text-xs font-bold font-mono px-5 py-2.5 md:py-2 rounded-lg hover:bg-cyan-300 transition-colors w-full md:w-auto shadow-[0_0_12px_rgba(34,211,238,0.25)] flex-shrink-0"
         >
           <Play className="h-3.5 w-3.5 fill-current" /> Run Experiment <ArrowRight className="h-3.5 w-3.5 ml-1" />
         </Link>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between px-2 pt-1 font-mono text-[10px] text-zinc-500 gap-2">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-2 pt-1 font-mono text-[10px] text-zinc-500 gap-3">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <span>TARGET:</span>
           <Link href={activeExp.target} className="text-cyan-400 hover:underline">{activeExp.target}</Link>
           <span className="hidden sm:inline">· {activeExp.desc}</span>
         </div>
-        <Link href="/learn" className="hover:text-zinc-300 transition flex items-center gap-1 group">
+        <Link href="/learn" className="hover:text-zinc-300 transition flex items-center gap-1 group w-max">
           All Labs <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform"/>
         </Link>
       </div>
@@ -113,8 +114,8 @@ function GradientDescentHero() {
   const reset = () => setSimState({ x: -5, path: [-5], iteration: 0, status: "idle" });
 
   // SVG coordinate mapping
-  const mapX = (val: number) => 300 + (val / 6) * 260; // maps -6 to 6 => 40 to 560
-  const mapY = (val: number) => 200 - (val / 36) * 160; // maps 0 to 36 => 200 to 40
+  const mapX = (val: number) => 300 + (val / 6) * 260;
+  const mapY = (val: number) => 200 - (val / 36) * 160;
 
   // Pre-calculate smooth background parabola path
   const curvePoints = [];
@@ -124,9 +125,9 @@ function GradientDescentHero() {
   const curvePath = "M " + curvePoints.join(" L ");
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-950/90 p-6 md:p-8 overflow-hidden relative shadow-2xl space-y-6">
+    <div className="rounded-xl border border-zinc-800 bg-zinc-950/90 p-5 md:p-8 overflow-hidden relative shadow-2xl space-y-6 md:space-y-8">
       {/* Header & Metrics */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-zinc-800/80 pb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-zinc-800/80 pb-6">
         <div>
           <div className="flex items-center gap-2 text-cyan-400 font-mono text-[10px] tracking-widest uppercase mb-1">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -135,12 +136,13 @@ function GradientDescentHero() {
           <h3 className="text-zinc-100 font-serif-heading text-xl md:text-2xl font-bold tracking-tight">Gradient Descent</h3>
         </div>
 
-        <div className="flex items-center gap-6 font-mono">
-          <div>
-            <div className="text-[10px] text-zinc-500 uppercase">Loss</div>
+        {/* Wrapped metrics grid for mobile screens */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-mono">
+          <div className="flex-1 min-w-[70px]">
+            <div className="text-[10px] text-zinc-500 uppercase mb-0.5">Loss</div>
             <div className="text-lg text-white font-bold">{(simState.x * simState.x).toFixed(3)}</div>
           </div>
-          <div>
+          <div className="flex-1 min-w-[140px]">
             <div className="text-[10px] text-zinc-500 uppercase mb-1">Learning Rate</div>
             <div className="flex items-center gap-2">
               <input
@@ -153,13 +155,13 @@ function GradientDescentHero() {
                   setLr(parseFloat(e.target.value));
                   if (simState.status === 'unstable' || simState.status === 'converged') reset();
                 }}
-                className="w-20 accent-cyan-400 cursor-ew-resize"
+                className="w-full max-w-[100px] accent-cyan-400 cursor-ew-resize"
               />
-              <span className={`text-sm ${lr > 0.5 ? 'text-amber-400' : 'text-cyan-400'} w-8`}>{lr.toFixed(2)}</span>
+              <span className={`text-sm flex-shrink-0 ${lr > 0.5 ? 'text-amber-400' : 'text-cyan-400'} w-8`}>{lr.toFixed(2)}</span>
             </div>
           </div>
-          <div>
-            <div className="text-[10px] text-zinc-500 uppercase">Iteration</div>
+          <div className="flex-1 min-w-[70px]">
+            <div className="text-[10px] text-zinc-500 uppercase mb-0.5">Iteration</div>
             <div className="text-lg text-zinc-300 w-6">{simState.iteration}</div>
           </div>
         </div>
@@ -168,9 +170,9 @@ function GradientDescentHero() {
       {/* Interactive 2D Loss Landscape Graph */}
       <div className="relative w-full h-48 md:h-64 bg-zinc-900/40 rounded-lg border border-zinc-800/50 flex items-center justify-center">
         {simState.status === 'unstable' && (
-          <div className="absolute inset-0 bg-rose-500/10 flex items-center justify-center border border-rose-500/20 rounded-lg z-20 pointer-events-none">
-            <span className="bg-zinc-950 text-rose-400 border border-rose-500/30 px-3 py-1 rounded font-mono text-xs shadow-xl">
-              UNSTABLE STEP · OVERSHOOTING MINIMUM
+          <div className="absolute inset-0 bg-rose-500/10 flex items-center justify-center border border-rose-500/20 rounded-lg z-20 pointer-events-none p-4 text-center">
+            <span className="bg-zinc-950 text-rose-400 border border-rose-500/30 px-3 py-1.5 rounded font-mono text-xs shadow-xl">
+              UNSTABLE STEP · OVERSHOOTING
             </span>
           </div>
         )}
@@ -219,11 +221,11 @@ function GradientDescentHero() {
       </div>
 
       {/* Action Controls & Destination */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-        <div className="flex gap-3 w-full sm:w-auto">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pt-2">
+        <div className="flex gap-3 w-full md:w-auto">
           <button
             onClick={simState.status === 'running' || simState.status === 'overshooting' ? reset : start}
-            className="flex-1 sm:flex-none flex justify-center items-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 px-5 py-2.5 rounded-lg font-mono text-xs font-bold transition-all active:scale-95 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+            className="flex-1 md:flex-none flex justify-center items-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 px-5 py-2.5 rounded-lg font-mono text-xs font-bold transition-all active:scale-95 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
           >
             {simState.status === 'running' || simState.status === 'overshooting' ? 'Stop' : 'Run Descent'}
           </button>
@@ -235,8 +237,8 @@ function GradientDescentHero() {
           </button>
         </div>
 
-        <Link href="/learn/gradient-descent" className="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1.5">
-          Explore the full Gradient Descent lab <ArrowRight className="w-3.5 h-3.5"/>
+        <Link href="/learn/gradient-descent" className="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors flex items-center justify-center md:justify-end gap-1.5 w-full md:w-auto">
+          Explore the full lab <ArrowRight className="w-3.5 h-3.5"/>
         </Link>
       </div>
     </div>

@@ -42,11 +42,21 @@ export function Footer() {
             <ul className="space-y-2 text-zinc-500 text-xs">
               <li>
                 <Link href="/learn" className="hover:text-zinc-300 transition">
-                  All 10 Labs
+                  Explore All Labs
                 </Link>
               </li>
               <li>
-                <Link href="/learn/rate-limiting" className="hover:text-cyan-400 transition">
+                <Link href="/learn/gradient-descent" className="hover:text-cyan-400 transition">
+                  Gradient Descent
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/linear-regression" className="hover:text-zinc-300 transition">
+                  Linear Regression
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/rate-limiting" className="hover:text-zinc-300 transition">
                   Rate Limiting
                 </Link>
               </li>
@@ -58,16 +68,6 @@ export function Footer() {
               <li>
                 <Link href="/learn/consistent-hashing" className="hover:text-zinc-300 transition">
                   Consistent Hashing
-                </Link>
-              </li>
-              <li>
-                <Link href="/learn/distributed-lock" className="hover:text-zinc-300 transition">
-                  Distributed Lock
-                </Link>
-              </li>
-              <li>
-                <Link href="/learn/replication-quorum" className="hover:text-zinc-300 transition">
-                  Replication & Quorum
                 </Link>
               </li>
             </ul>
